@@ -23,11 +23,11 @@ def attack():
     print(f"4. Wait (AP + 1)")
     action = input(">> ")
 
-    if action == "1":
+    if action == "1" and player.ap >= player.atk1ap:
         print(f"Enemy took {player.atk1} damage.")
         enemy.hp -= player.atk1
         player.ap -= player.atk1ap
-    elif action == "2":
+    elif action == "2" and player.ap >= player.atk2.ap:
         damage = randint(player.atk2/2, player.atk2)
         print(f"Enemy took {damage} damage.")
         enemy.hp -= damage
@@ -40,12 +40,18 @@ def attack():
         else:
             print("You failed to block the enemies attack.")
             is_blocked = False
+    elif action == "4":
+        player.ap += 2
+    else:
+        print("You are too axhausted to perform that action")
     return is_blocked
 
 def enemy_attack(is_blocked):
     if not is_blocked:
         print(f"The enemy delt {enemy.atk1} damage")
         player.hp -= enemy.atk1
+    elif enemy.ap == 0:
+        enemy.ap += 2
 
 def start():
     print("This is the battle system")
